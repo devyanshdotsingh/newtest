@@ -1,28 +1,55 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                // Checkout source code from Git repository
+                git branch: 'main', url: 'https://github.com/devyanshdotsingh/newtest.git'
             }
         }
         
-        stage('Echo') {
+        stage('Build') {
             steps {
-                echo 'Hello, Jenkins!'
+                // Install dependencies and build the Node.js application
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
-        stage('Docker check') {
+
+        stage('Test') {
             steps {
-                sh 'docker --version'
+                // Run tests
+                sh 'npm test'
+            }
+        }
+        
+        stage('Deploy') {
+            environment {
+                // Set environment variables for deployment
+                DOCKER_IMAGE = 'your-docker-image-name'
+            }
+            steps {
+                // Build Docker image
+                sh 'docker build -t $DOCKER_IMAGE .'
+                
+                // Push Docker image to Docker registry
+                sh 'docker push $DOCKER_IMAGE'
+                
+                // Deploy Docker image to Kubernetes cluster
+                sh 'kubectl apply -f deployment.yaml'
             }
         }
     }
     
-    // post {
-    //     always {
-    //         // Clean up any resources if needed
-    //     }
-    // }
+    post {
+        success {
+            // Notification for successful build and deployment
+            echo 'Build and deployment successful!'
+        }
+        failure {
+            // Notification for failed build or deployment
+            echo 'Build or deployment failed!'
+        }
+    }
 }
