@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'ubuntu:20.04' // Specify the Docker image to use
+            args '-u root' // Optional: Specify additional arguments for the Docker container
+        }
+    }
 
     stages {
         stage('Checkout') {
@@ -27,7 +32,7 @@ pipeline {
         stage('Deploy') {
             environment {
                 // Set environment variables for deployment
-                DOCKER_IMAGE = 'your-docker-image-name'
+                DOCKER_IMAGE = 'nodeimagetest'
             }
             steps {
                 // Build Docker image
