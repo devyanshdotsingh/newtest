@@ -13,6 +13,11 @@ pipeline {
                 echo 'Hello, Jenkins!'
             }
         }
+        stage('Docker check') {
+            steps {
+                sh 'docker --version'
+            }
+        }
     }
     
     // post {
