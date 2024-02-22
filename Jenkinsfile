@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'ubuntu:20.04' // Specify the Docker image to use
-            args '-u root' // Optional: Specify additional arguments for the Docker container
+            image 'ubuntu:latest' // Use any Linux image you need
+            label 'linux' // Optional label to restrict builds to nodes with this label
         }
     }
 
