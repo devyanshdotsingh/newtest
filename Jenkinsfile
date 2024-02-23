@@ -1,8 +1,7 @@
 pipeline {
     agent {
-        docker {
-            image 'ubuntu:latest' // Use any Linux image you need
-            label 'linux' // Optional label to restrict builds to nodes with this label
+        node {
+            label "linux"
         }
     }
 
