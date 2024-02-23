@@ -6,12 +6,12 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout source code from Git repository
-                git branch: 'main', url: 'https://github.com/devyanshdotsingh/newtest.git'
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         // Checkout source code from Git repository
+        //         git branch: 'main', url: 'https://github.com/devyanshdotsingh/newtest.git'
+        //     }
+        // }
         
         stage('Build') {
             steps {
