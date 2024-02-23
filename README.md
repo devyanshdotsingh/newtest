@@ -1,4 +1,4 @@
 # newtest
 test
-Commit trigger test.
+Commit trigger test
 
