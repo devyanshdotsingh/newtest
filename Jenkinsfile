@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout source code from Git repository
-                git branch: 'main', url: 'https://github.com/devyanshdotsingh/newtest.git'
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/devyanshdotsingh/newtest.git'
             }
         }
         
