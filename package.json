@@ -5,12 +5,12 @@
     "main": "index.js",
     "scripts": {
       "start": "node index.js",
-      "test": "echo 'No tests defined'"
+      "test": "echo 'No tests defined'",
+      "build": "echo 'Running build process...'"
     },
-    "author": "Your Name",
+    "author": "Dev",
     "license": "ISC",
     "dependencies": {
       "express": "^4.17.1"
     }
-  }
-  
+}
