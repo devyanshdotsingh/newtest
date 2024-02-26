@@ -4,6 +4,10 @@ pipeline {
             label "linux"
         }
     }
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '3')) // Retain history on the last 10 builds
+        timestamps() // Append timestamps to each line
+    }
 
     stages {
         stage('Checkout') {
@@ -13,25 +17,41 @@ pipeline {
             }
         }
         
-        // stage('Build') {
-        //     steps {
-        //         // Install dependencies and build the Node.js application
-        //         sh 'npm install'
-        //         sh 'npm run build'
-        //     }
-        // }
+        stage('Build') {
+            agent {
+                dockerfile {
+                    label 'linux'
+                    filename 'Dockerfile'
+                    reuseNode true
+                }
+            }
+            steps {
+                // Install dependencies and build the Node.js application
+                sh 'npm install'
+                sh 'npm run build'
+            }
+        }
 
-        // stage('Test') {
-        //     steps {
-        //         // Run tests
-        //         sh 'npm test'
-        //     }
-        // }
+        stage('Test') {
+            agent {
+                dockerfile {
+                    label 'linux'
+                    filename 'Dockerfile'
+                    reuseNode true
+                }
+            }
+            steps {
+                // Run tests
+                sh 'npm test'
+            }
+        }
         
         // stage('Deploy') {
         //     environment {
         //         // Set environment variables for deployment
+        //         DOCKERHUB_CREDENTIALS = credentials('Jenkins Build')
         //         DOCKER_IMAGE = 'nodeimagetest'
+        //         TAG = 'devyansh'
         //     }
         //     steps {
         //         // Build Docker image
@@ -44,11 +64,6 @@ pipeline {
         //         sh 'kubectl apply -f deployment.yaml'
         //     }
         // }
-        stage('Docker images check'){
-            steps{
-                sh 'docker images'
-            }
-        }
     }
     
     post {
