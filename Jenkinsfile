@@ -54,6 +54,8 @@ pipeline {
                 TAG = 'devyansh'
             }
             steps {
+
+                script{
                 //Docker login
                 sh 'echo "Puchu@123" | docker login -u devplus2 --password-stdin'
                 // Build Docker image
@@ -62,6 +64,7 @@ pipeline {
                 sh 'docker push $DOCKER_IMAGE'
                 // Deploy Docker image to Kubernetes cluster
                 // sh 'kubectl apply -f deployment.yaml'
+                }
             }
         }
     }
