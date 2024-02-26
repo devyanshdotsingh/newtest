@@ -61,7 +61,7 @@ pipeline {
                 // Build Docker image
                 sh 'docker build -t ${DOCKER_IMAGE}:${TAG} .'
                 // Push Docker image to Docker registry
-                sh 'docker push devplus2/artifacts_cicd:${TAG}'
+                sh 'docker push artifacts_cicd/${DOCKER_IMAGE}:${TAG}'
                 // Deploy Docker image to Kubernetes cluster
                 // sh 'kubectl apply -f deployment.yaml'
                 }
