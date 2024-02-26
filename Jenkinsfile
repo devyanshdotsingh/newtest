@@ -59,9 +59,9 @@ pipeline {
                 //Docker login
                 sh 'echo "Puchu@123" | docker login -u devplus2 --password-stdin'
                 // Build Docker image
-                sh 'docker build -t $DOCKER_IMAGE .'
+                sh 'docker build -t ${DOCKER_IMAGE}:${TAG} .'
                 // Push Docker image to Docker registry
-                sh 'docker push $DOCKER_IMAGE'
+                sh 'docker push devplus2/artifacts_cicd:${TAG}'
                 // Deploy Docker image to Kubernetes cluster
                 // sh 'kubectl apply -f deployment.yaml'
                 }
