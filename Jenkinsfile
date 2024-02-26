@@ -46,24 +46,24 @@ pipeline {
             }
         }
         
-        // stage('Deploy') {
-        //     environment {
-        //         // Set environment variables for deployment
-        //         DOCKERHUB_CREDENTIALS = credentials('Jenkins Build')
-        //         DOCKER_IMAGE = 'nodeimagetest'
-        //         TAG = 'devyansh'
-        //     }
-        //     steps {
-        //         // Build Docker image
-        //         sh 'docker build -t $DOCKER_IMAGE .'
-                
-        //         // Push Docker image to Docker registry
-        //         sh 'docker push $DOCKER_IMAGE'
-                
-        //         // Deploy Docker image to Kubernetes cluster
-        //         sh 'kubectl apply -f deployment.yaml'
-        //     }
-        // }
+        stage('Deploy') {
+            environment {
+                // Set environment variables for deployment
+                //DOCKERHUB_CREDENTIALS = credentials('Jenkins Build')
+                DOCKER_IMAGE = 'nodeimagetest'
+                TAG = 'devyansh'
+            }
+            steps {
+                //Docker login
+                sh 'echo "Puchu@123" | docker login -u devplus2 --password-stdin'
+                // Build Docker image
+                sh 'docker build -t $DOCKER_IMAGE .'
+                // Push Docker image to Docker registry
+                sh 'docker push $DOCKER_IMAGE'
+                // Deploy Docker image to Kubernetes cluster
+                // sh 'kubectl apply -f deployment.yaml'
+            }
+        }
     }
     
     post {
