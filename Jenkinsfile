@@ -50,7 +50,7 @@ pipeline {
             environment {
                 // Set environment variables for deployment
                 //DOCKERHUB_CREDENTIALS = credentials('Jenkins Build')
-                DOCKER_IMAGE = 'nodeimagetest'
+                DOCKER_IMAGE = 'cicd-test'
                 TAG = 'devyansh'
             }
             steps {
