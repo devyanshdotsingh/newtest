@@ -52,16 +52,19 @@ pipeline {
                 //DOCKERHUB_CREDENTIALS = credentials('Jenkins Build')
                 DOCKER_IMAGE = 'nodetestimage'
                 TAG = 'devyansh'
+                USERNAME = 'devplus2'
             }
             steps {
 
                 script{
                 //Docker login
-                sh 'echo "Puchu@123" | docker login -u devplus2 --password-stdin'
+                sh 'echo "Puchu@123" | docker login -u ${USERNAME} --password-stdin'
                 // Build Docker image
-                sh 'docker build -t artifacts_cicd/${DOCKER_IMAGE}:${TAG} .'
+                sh 'docker build -t ${DOCKER_IMAGE}:${TAG} .'
+                // Tagging image
+                sh 'docker tag ${DOCKER_IMAGE}:${TAG} ${USERNAME}/${DOCKER_IMAGE}'
                 // Push Docker image to Docker registry
-                sh 'docker push artifacts_cicd/${DOCKER_IMAGE}:${TAG}'
+                sh 'docker push ${USERNAME}/${DOCKER_IMAGE}'
                 // Deploy Docker image to Kubernetes cluster
                 // sh 'kubectl apply -f deployment.yaml'
                 }
